@@ -192,6 +192,8 @@ app.post('/login', async (req, res) => {
             }
         }
     });
+
+
     app.get('/portfolio/:id', async (req, res) => {
         try {
         console.log('Received portfolio request:', req.params.id);
@@ -240,6 +242,75 @@ app.post('/login', async (req, res) => {
             }
         }
     });
+
+
+
+    //get client preferences
+    app.get('/client/preferences/:id', async (req, res) => {
+      try {
+      console.log('Received client request:', req.params.id);
+  
+      const javaApiResponse = await axios.get(`http://localhost:8080/client/preferences/${req.params.id}`);
+  
+      console.log('Java API Response:', javaApiResponse.data);
+  
+      res.json(javaApiResponse.data);
+      } catch (error) {
+          if (error.response) {
+          res.status(error.response.status);
+          res.send(error.response.data);
+          } else {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+          }
+      }
+  });
+
+
+  //add client preferences
+  app.post('/client/add/preferences/:id', async (req, res) => {
+    try {
+    console.log('Received trade request:', req.body);
+
+    const javaApiResponse = await axios.post(`http://localhost:8080/client/add/preferences/${req.params.id}`, req.body);
+
+    console.log('Java API Response:', javaApiResponse.data);
+
+    res.json(javaApiResponse.data);
+    } catch (error) {
+        if (error.response) {
+        res.status(error.response.status);
+        res.send(error.response.data);
+        } else {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+});
+
+//update client preferences
+ app.put('/client/update/preferences/:id', async (req, res) => {
+        try {
+        console.log('Received register request:', req.body);
+    
+        const javaApiResponse = await axios.put(`http://localhost:8080/client/update/preferences/${req.params.id}`, req.body);
+    
+        console.log('Java API Response:', javaApiResponse.data);
+
+    res.json(javaApiResponse.data);
+    } catch (error) {
+        if (error.response) {
+        res.status(error.response.status);
+        res.send(error.response.data);
+        } else {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    });
+
+
+
 app.listen(port, () => {
   console.log(`Node.js REST API listening on port ${port}`);
 });
