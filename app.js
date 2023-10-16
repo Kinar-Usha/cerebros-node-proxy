@@ -65,7 +65,6 @@ app.post('/client/login', async (req, res) => {
         'Content-Type': 'text/plain',
       };
   
-      req
       const javaApiResponse = await axios.post('http://localhost:8080/client/verifyEmail', req.body,{headers});
   
       console.log('Java API Response:', javaApiResponse.status);
@@ -129,6 +128,22 @@ app.post('/client/login', async (req, res) => {
         }
     });
 
+    app.get('/client/email/:email', async (req, res) => {
+        try {
+        console.log('Received client request:', req.params.email);
+        const javaApiResponse = await axios.get(`http://localhost:8080/client/email/${req.params.email}`);
+        console.log('Java API Response:', javaApiResponse.data);
+        res.json(javaApiResponse.data);
+        } catch (error) {
+            if (error.response) {
+            res.status(error.response.status);
+            res.send(error.response.data);
+            } else {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+            }
+        }
+    });
     app.get('/prices'   , async (req, res) => {
         try {
         console.log('Received prices request');
@@ -307,6 +322,26 @@ app.post('/client/login', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    });
+
+    app.get('/roboadvisor/:id', async (req, res) => {
+        try {
+        console.log('Received roboadvisor request:', req.params.id);
+    
+        const javaApiResponse = await axios.get(`http://localhost:8080/roboadvisor/${req.params.id}`);
+    
+        console.log('Java API Response:', javaApiResponse.data);
+    
+        res.json(javaApiResponse.data);
+        } catch (error) {
+            if (error.response) {
+            res.status(error.response.status);
+            res.send(error.response.data);
+            } else {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+            }
+        }
     });
 
 
