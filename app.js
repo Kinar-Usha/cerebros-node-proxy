@@ -18,7 +18,7 @@ const corsOptions = {
   
   app.use(cors(corsOptions));
   
-app.post('/login', async (req, res) => {
+app.post('/client/login', async (req, res) => {
     try {
       console.log('Received login request:', req.body);
   
@@ -57,7 +57,7 @@ app.post('/login', async (req, res) => {
     }
   });
 
-  // todo verify email doesnt work is not reading email from request
+  // TODO verify email doesnt work is not reading email from request
   app.post('/client/verifyEmail', async (req, res) => {
     try {
       console.log('Received verifyEmail request:', req);
