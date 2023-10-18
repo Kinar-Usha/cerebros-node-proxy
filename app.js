@@ -347,6 +347,26 @@ app.post('/client/login', async (req, res) => {
       }
     });
 
+    
+    app.post('/updateCash', async (req, res) => {
+      try {
+        console.log('Received updateCash request:', req.body);
+
+        const javaApiResponse = await axios.post(`${backendUrl}/updateCash`, req.body);
+
+        console.log('Java API Response:', javaApiResponse.data);
+
+        res.json(javaApiResponse.data);
+      } catch (error) {
+        if (error.response) {
+          res.status(error.response.status);
+          res.send(error.response.data);
+        } else {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      }
+    });
 
 
 app.listen(port, () => {
