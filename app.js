@@ -23,7 +23,7 @@ const corsOptions = {
   
   app.use(cors(corsOptions));
   
-app.post('/client/login', async (req, res) => {
+app.post('/api/client/login', async (req, res) => {
     try {
       console.log('Received login request:', req.body);
   
@@ -42,7 +42,7 @@ app.post('/client/login', async (req, res) => {
         }
       }
   });
-  app.get('/ping', async (req, res) => {
+  app.get('/api/ping', async (req, res) => {
     try {
       console.log('Received ping request');
   
@@ -63,7 +63,7 @@ app.post('/client/login', async (req, res) => {
   });
 
   // TODO verify email doesnt work is not reading email from request
-  app.post('/client/verifyEmail', async (req, res) => {
+  app.post('/api/client/verifyEmail', async (req, res) => {
     try {
       console.log('Received verifyEmail request:', req);
       const headers = {
@@ -92,7 +92,7 @@ app.post('/client/login', async (req, res) => {
       }
   });
   // write an app get request which has a path varibale client id and pass it off to the java endpoint the same way
-    app.get('/client/:id', async (req, res) => {
+    app.get('/api/client/:id', async (req, res) => {
         try {
         console.log('Received client request:', req.params.id);
     
@@ -111,7 +111,7 @@ app.post('/client/login', async (req, res) => {
             }
         }
     });
-    app.put('/client/register', async (req, res) => {
+    app.put('/api/client/register', async (req, res) => {
         try {
         console.log('Received register request:', req.body);
     
@@ -133,7 +133,7 @@ app.post('/client/login', async (req, res) => {
         }
     });
 
-    app.get('/client/email/:email', async (req, res) => {
+    app.get('/api/client/email/:email', async (req, res) => {
         try {
         console.log('Received client request:', req.params.email);
         const javaApiResponse = await axios.get(`${backendUrl}/client/email/${req.params.email}`);
@@ -149,7 +149,7 @@ app.post('/client/login', async (req, res) => {
             }
         }
     });
-    app.get('/prices'   , async (req, res) => {
+    app.get('/api/prices'   , async (req, res) => {
         try {
         console.log('Received prices request');
     
@@ -168,7 +168,7 @@ app.post('/client/login', async (req, res) => {
             }
         }
     });
-    app.get('/tradehistory/:id', async (req, res) => {
+    app.get('/api/tradehistory/:id', async (req, res) => {
         try {
         console.log('Received trades request:', req.params.id);
     
@@ -193,7 +193,7 @@ app.post('/client/login', async (req, res) => {
             }
         }
     });
-    app.post('/trade', async (req, res) => {
+    app.post('/api/trade', async (req, res) => {
         try {
         console.log('Received trade request:', req.body);
     
@@ -214,7 +214,7 @@ app.post('/client/login', async (req, res) => {
     });
 
 
-    app.get('/portfolio/:id', async (req, res) => {
+    app.get('/api/portfolio/:id', async (req, res) => {
         try {
         console.log('Received portfolio request:', req.params.id);
     
@@ -238,7 +238,7 @@ app.post('/client/login', async (req, res) => {
             }
         }
     });
-    app.get('/cash/:id', async (req, res) => {
+    app.get('/api/cash/:id', async (req, res) => {
         try {
         console.log('Received cash request:', req.params.id);
     
@@ -266,7 +266,7 @@ app.post('/client/login', async (req, res) => {
 
 
     //get client preferences
-    app.get('/client/preferences/:id', async (req, res) => {
+    app.get('/api/client/preferences/:id', async (req, res) => {
       try {
       console.log('Received client request:', req.params.id);
   
@@ -288,7 +288,7 @@ app.post('/client/login', async (req, res) => {
 
 
   //add client preferences
-  app.post('/client/add/preferences/:id', async (req, res) => {
+  app.post('/api/client/add/preferences/:id', async (req, res) => {
     try {
     console.log('Received trade request:', req.body);
 
@@ -309,7 +309,7 @@ app.post('/client/login', async (req, res) => {
 });
 
 //update client preferences
- app.put('/client/update/preferences/:id', async (req, res) => {
+ app.put('/api/client/update/preferences/:id', async (req, res) => {
         try {
         console.log('Received register request:', req.body);
     
@@ -329,7 +329,7 @@ app.post('/client/login', async (req, res) => {
     }
     });
 
-    app.get('/roboadvisor/preferences/:id', async (req, res) => {
+    app.get('/api/roboadvisor/preferences/:id', async (req, res) => {
       try {
       console.log('Received roboadvisor request:', req.params.id);
       const { risk, time, income } = req.query;
@@ -348,7 +348,7 @@ app.post('/client/login', async (req, res) => {
     });
 
     
-    app.post('/updateCash', async (req, res) => {
+    app.post('/api/updateCash', async (req, res) => {
       try {
         console.log('Received updateCash request:', req.body);
 
