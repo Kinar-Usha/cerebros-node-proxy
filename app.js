@@ -1,8 +1,13 @@
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
 const port = 8082;
+
+const backendUrl = process.env.BACKEND_URL;
+console.log(`Backend URL: ${backendUrl}`);
 
 app.use(express.json());
 // cors error
@@ -22,7 +27,7 @@ app.post('/client/login', async (req, res) => {
     try {
       console.log('Received login request:', req.body);
   
-      const javaApiResponse = await axios.post('http://localhost:8080/client/login', req.body);
+      const javaApiResponse = await axios.post(`${backendUrl}/client/login`, req.body);
   
       console.log('Java API Response:', javaApiResponse.data);
   
@@ -41,7 +46,7 @@ app.post('/client/login', async (req, res) => {
     try {
       console.log('Received ping request');
   
-      const javaApiResponse = await axios.get('http://localhost:8080/ping');
+      const javaApiResponse = await axios.get(`${backendUrl}/ping`);
   
       console.log('Java API Response:', javaApiResponse.data);
   
@@ -65,7 +70,7 @@ app.post('/client/login', async (req, res) => {
         'Content-Type': 'text/plain',
       };
   
-      const javaApiResponse = await axios.post('http://localhost:8080/client/verifyEmail', req.body,{headers});
+      const javaApiResponse = await axios.post(`${backendUrl}/client/verifyEmail`, req.body,{headers});
   
       console.log('Java API Response:', javaApiResponse.status);
       res.set('Content-Type', 'text/plain');
@@ -91,7 +96,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received client request:', req.params.id);
     
-        const javaApiResponse = await axios.get(`http://localhost:8080/client/${req.params.id}`);
+        const javaApiResponse = await axios.get(`${backendUrl}/client/${req.params.id}`);
     
         console.log('Java API Response:', javaApiResponse.data);
     
@@ -110,7 +115,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received register request:', req.body);
     
-        const javaApiResponse = await axios.put('http://localhost:8080/client/register', req.body);
+        const javaApiResponse = await axios.put(`${backendUrl}/client/register`, req.body);
     
         if(javaApiResponse.status === 204){
             res.status(204).send();
@@ -131,7 +136,7 @@ app.post('/client/login', async (req, res) => {
     app.get('/client/email/:email', async (req, res) => {
         try {
         console.log('Received client request:', req.params.email);
-        const javaApiResponse = await axios.get(`http://localhost:8080/client/email/${req.params.email}`);
+        const javaApiResponse = await axios.get(`${backendUrl}/client/email/${req.params.email}`);
         console.log('Java API Response:', javaApiResponse.data);
         res.json(javaApiResponse.data);
         } catch (error) {
@@ -148,7 +153,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received prices request');
     
-        const javaApiResponse = await axios.get('http://localhost:8080/prices');
+        const javaApiResponse = await axios.get(`${backendUrl}/prices`);
     
         console.log('Java API Response:', javaApiResponse.data);
     
@@ -167,7 +172,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received trades request:', req.params.id);
     
-        const javaApiResponse = await axios.get(`http://localhost:8080/tradehistory/${req.params.id}`);
+        const javaApiResponse = await axios.get(`${backendUrl}/tradehistory/${req.params.id}`);
     
         console.log('Java API Response:', javaApiResponse.data);
         if(javaApiResponse.status === 204){
@@ -192,7 +197,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received trade request:', req.body);
     
-        const javaApiResponse = await axios.post('http://localhost:8080/trade', req.body);
+        const javaApiResponse = await axios.post(`${backendUrl}/trade`, req.body);
     
         console.log('Java API Response:', javaApiResponse.data);
     
@@ -213,7 +218,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received portfolio request:', req.params.id);
     
-        const javaApiResponse = await axios.get(`http://localhost:8080/portfolio/${req.params.id}`);
+        const javaApiResponse = await axios.get(`${backendUrl}/portfolio/${req.params.id}`);
     
         console.log('Java API Response:', javaApiResponse.data);
         if(javaApiResponse.status === 204){
@@ -237,7 +242,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received cash request:', req.params.id);
     
-        const javaApiResponse = await axios.get(`http://localhost:8080/cash/${req.params.id}`);
+        const javaApiResponse = await axios.get(`${backendUrl}/cash/${req.params.id}`);
     
         console.log('Java API Response:', javaApiResponse.data);
     
@@ -265,7 +270,7 @@ app.post('/client/login', async (req, res) => {
       try {
       console.log('Received client request:', req.params.id);
   
-      const javaApiResponse = await axios.get(`http://localhost:8080/client/preferences/${req.params.id}`);
+      const javaApiResponse = await axios.get(`${backendUrl}/client/preferences/${req.params.id}`);
   
       console.log('Java API Response:', javaApiResponse.data);
   
@@ -287,7 +292,7 @@ app.post('/client/login', async (req, res) => {
     try {
     console.log('Received trade request:', req.body);
 
-    const javaApiResponse = await axios.post(`http://localhost:8080/client/add/preferences/${req.params.id}`, req.body);
+    const javaApiResponse = await axios.post(`${backendUrl}/client/add/preferences/${req.params.id}`, req.body);
 
     console.log('Java API Response:', javaApiResponse.data);
 
@@ -308,7 +313,7 @@ app.post('/client/login', async (req, res) => {
         try {
         console.log('Received register request:', req.body);
     
-        const javaApiResponse = await axios.put(`http://localhost:8080/client/update/preferences/${req.params.id}`, req.body);
+        const javaApiResponse = await axios.put(`${backendUrl}/client/update/preferences/${req.params.id}`, req.body);
     
         console.log('Java API Response:', javaApiResponse.data);
 
@@ -328,7 +333,7 @@ app.post('/client/login', async (req, res) => {
       try {
       console.log('Received roboadvisor request:', req.params.id);
       const { risk, time, income } = req.query;
-      const javaApiResponse = await axios.get(`http://localhost:8080/roboadvisor/preferences/${req.params.id}?risk=${risk}&time=${time}&income=${income}`);
+      const javaApiResponse = await axios.get(`${backendUrl}/roboadvisor/preferences/${req.params.id}?risk=${risk}&time=${time}&income=${income}`);
       console.log('Java API Response:', javaApiResponse.data);
       res.json(javaApiResponse.data);
       } catch (error) {
